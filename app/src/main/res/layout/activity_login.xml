@@ -43,31 +43,26 @@
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/login_google"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_width="200dp"
         android:layout_below="@+id/app_name"
-        android:layout_alignStart="@+id/app_name"
         android:layout_marginTop="15dp"
-        android:layout_height="35dp" />
+        android:layout_height="35dp"
+        android:layout_alignStart="@+id/app_name"
+        android:layout_alignEnd="@+id/app_name" />
+
     <!--
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_facebook"
         android:layout_gravity="center_horizontal"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_marginTop="20dp"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content" />
-        -->
-        <!--
         android:layout_below="@+id/login_google"
-        android:layout_alignStart="@+id/login_google"
-        -->
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/login_google"
+        android:layout_alignStart="@+id/login_google" />
+    -->
 
-
-    <LinearLayout
-        android:id="@+id/buttonlayout"
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"></LinearLayout>
 
 </RelativeLayout>

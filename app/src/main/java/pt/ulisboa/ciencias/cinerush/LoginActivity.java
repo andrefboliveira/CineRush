@@ -33,7 +33,7 @@ public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener  {
 
-    private static final String TAG = "SignInActivity";
+    private static final String TAG = "TesteSignIN";
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
@@ -65,6 +65,7 @@ public class LoginActivity extends AppCompatActivity implements
 
 
             SignInButton signInButton = (SignInButton) findViewById(R.id.login_google);
+            signInButton.setVisibility(View.VISIBLE);
             //signInButton.setSize(SignInButton.SIZE_STANDARD);
             signInButton.setScopes(gso.getScopeArray());
 
@@ -87,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     public boolean isLoggedIn() {
-        return true;
+        return false;
         //AccessToken accessToken = AccessToken.getCurrentAccessToken();
         //return accessToken != null;
     }
