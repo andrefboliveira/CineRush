@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_login"
     android:layout_width="match_parent"
@@ -8,6 +9,34 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="pt.ulisboa.ciencias.cinerush.LoginActivity">
+    tools:context="pt.ulisboa.ciencias.cinerush.LoginActivity"
+    android:background="@color/background">
 
+
+    <TextView
+        android:text="CineRush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/app_name"
+        android:gravity="center"
+        android:layout_below="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:textSize="50sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:textAlignment="center"
+        android:typeface="normal"
+        android:fontFamily="sans-serif-condensed" />
+
+    <ImageView
+        app:srcCompat="@drawable/logo"
+        android:id="@+id/logo"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        android:cropToPadding="false"
+        android:adjustViewBounds="true"
+        android:gravity="center"
+        android:fontFamily="Arial"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_width="200dp" />
 </RelativeLayout>
