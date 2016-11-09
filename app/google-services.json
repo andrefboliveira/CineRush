@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "785055161980",
+    "project_id": "firebase-cinerush"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:785055161980:android:1bdb167363d5481a",
+        "android_client_info": {
+          "package_name": "pt.ulisboa.ciencias.cinerush"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "785055161980-62m057hu67meu5s5dpidh47vjv2sjm6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pt.ulisboa.ciencias.cinerush",
+            "certificate_hash": "6201AB2E65817C0C2040A784BA4A653CCF8204D1"
+          }
+        },
+        {
+          "client_id": "785055161980-vqeggk57ug0i6r6j9f3e24374ejemtmc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAh0hsRF3E3sY-tc2gCofxg9PI2SD2Ajpk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
