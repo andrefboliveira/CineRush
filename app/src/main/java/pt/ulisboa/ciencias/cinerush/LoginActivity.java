@@ -47,20 +47,7 @@ public class LoginActivity extends AppCompatActivity implements
         FacebookSdk.sdkInitialize(getApplicationContext());
         //AppEventsLogger.activateApp(this);
 
-        if(isLoggedIn()){
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-
-                    Intent intent = new Intent(LoginActivity.this, DrawerActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }, 1500);
-
-
-        }
-        else{
+        if(!isLoggedIn()){
             // Login with google:
 
             // Configure sign-in to request the user's ID, email address, and basic
@@ -83,19 +70,20 @@ public class LoginActivity extends AppCompatActivity implements
 
             findViewById(R.id.login_google).setOnClickListener(this);
 
-
-            /*
-
-            Button myButton = new Button(this);
-            myButton.setText("Push Me");
-
-            LinearLayout ll = (LinearLayout)findViewById(R.id.buttonlayout);
-            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            ll.addView(myButton, lp);
-
-            */
-
         }
+        else {
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    Intent intent = new Intent(LoginActivity.this, DrawerActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+            }, 1500);
+        }
+
     }
 
     public boolean isLoggedIn() {
@@ -108,25 +96,27 @@ public class LoginActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
-            Log.d(TAG, "Got cached sign-in");
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-            showProgressDialog();
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    hideProgressDialog();
-                    handleSignInResult(googleSignInResult);
-                }
-            });
+        if(!isLoggedIn()) {
+            OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+            if (opr.isDone()) {
+                // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+                // and the GoogleSignInResult will be available instantly.
+                Log.d(TAG, "Got cached sign-in");
+                GoogleSignInResult result = opr.get();
+                handleSignInResult(result);
+            } else {
+                // If the user has not previously signed in on this device or the sign-in has expired,
+                // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+                // single sign-on will occur in this branch.
+                showProgressDialog();
+                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                    @Override
+                    public void onResult(GoogleSignInResult googleSignInResult) {
+                        hideProgressDialog();
+                        handleSignInResult(googleSignInResult);
+                    }
+                });
+            }
         }
     }
 
@@ -150,7 +140,9 @@ public class LoginActivity extends AppCompatActivity implements
             // Signed in successfully, show authenticated UI.
             GoogleSignInAccount acct = result.getSignInAccount();
             //mStatusTextView.setText(getString(R.string.signed_in_fmt, acct.getDisplayName()));
-            updateUI(true);
+            //updateUI(true);
+            Intent intent = new Intent(LoginActivity.this, DrawerActivity.class);
+            startActivity(intent);
         } else {
             // Signed out, show unauthenticated UI.
             updateUI(false);
@@ -243,4 +235,24 @@ public class LoginActivity extends AppCompatActivity implements
                */
         }
     }
+
+    private void facebookPost() {
+        //check login
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        if (accessToken == null) {
+            Log.d(TAG, ">>>" + "Signed Out");
+        } else {
+            Log.d(TAG, ">>>" + "Signed In");
+        }
+    }
+
+    /*
+    private void updateWithToken(AccessToken currentAccessToken) {
+        if (currentAccessToken != null) {
+            fillUIWithFacebookInfos(handler);
+        } else {
+            login();
+        }
+    }
+    */
 }
