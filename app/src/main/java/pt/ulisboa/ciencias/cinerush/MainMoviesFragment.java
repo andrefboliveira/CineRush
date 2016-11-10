@@ -66,16 +66,22 @@ public class MainMoviesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        /*
+
+    }
+
+    public View onCreateView(LayoutInflater inflater,
+                             ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_main_movies, container, false);
         //LISTA DE FILMES
-        ListView movieList = (ListView) getActivity().findViewById(R.id.movie_list);
+        ListView movieList = (ListView) view.findViewById(R.id.movie_list);
         ArrayList<String> movies = getMovies();
         ArrayAdapter<String> aa = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, movies);
         movieList.setAdapter(aa);
-        movieList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        movieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                switch(position){
+                switch (position) {
                     case 0:
 //                        goToMovieDescription(view);
                         break;
@@ -84,7 +90,7 @@ public class MainMoviesFragment extends Fragment {
                 }
             }
         });
-        */
+        return view;
     }
 
     private ArrayList<String> getMovies(){
@@ -107,12 +113,7 @@ public class MainMoviesFragment extends Fragment {
         return filmes;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_main_movies, container, false);
-    }
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
