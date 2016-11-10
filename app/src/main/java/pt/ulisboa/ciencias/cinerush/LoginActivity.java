@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -56,6 +57,10 @@ public class LoginActivity extends AppCompatActivity implements
     private Button fbbutton;
     // Creating Facebook CallbackManager Value
     public CallbackManager callbackmanager;
+    private AccessTokenTracker accessTokenTracker;
+    private boolean facebook;
+    private boolean google;
+    private boolean google_autologin = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +68,15 @@ public class LoginActivity extends AppCompatActivity implements
         FacebookSdk.sdkInitialize(this.getApplicationContext());
 
         setContentView(R.layout.activity_login);
+        
+        accessTokenTracker = new AccessTokenTracker() {
+            @Override
+            protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken newAccessToken) {
+                updateWithToken(newAccessToken);
+            }
+        };
+        updateWithToken(AccessToken.getCurrentAccessToken());
+
 
 
 
@@ -98,7 +112,6 @@ public class LoginActivity extends AppCompatActivity implements
 
                 @Override
                 public void onClick(View v) {
-                    // Call private method
                     onFblogin();
                 }
             });
@@ -119,24 +132,27 @@ public class LoginActivity extends AppCompatActivity implements
     public void onStart() {
         super.onStart();
 
-        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
-        if (opr.isDone()) {
-            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
-            // and the GoogleSignInResult will be available instantly.
-            GoogleSignInResult result = opr.get();
-            handleSignInResult(result);
-        } else {
-            // If the user has not previously signed in on this device or the sign-in has expired,
-            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
-            // single sign-on will occur in this branch.
-            showProgressDialog();
-            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
-                @Override
-                public void onResult(GoogleSignInResult googleSignInResult) {
-                    hideProgressDialog();
-                    handleSignInResult(googleSignInResult);
-                }
-            });
+        if (!facebook) {
+            OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+            google_autologin = true;
+            if (opr.isDone()) {
+                // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+                // and the GoogleSignInResult will be available instantly.
+                GoogleSignInResult result = opr.get();
+                handleSignInResult(result);
+            } else {
+                // If the user has not previously signed in on this device or the sign-in has expired,
+                // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+                // single sign-on will occur in this branch.
+                showProgressDialog();
+                opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                    @Override
+                    public void onResult(GoogleSignInResult googleSignInResult) {
+                        hideProgressDialog();
+                        handleSignInResult(googleSignInResult);
+                    }
+                });
+            }
         }
     }
 
@@ -160,12 +176,14 @@ public class LoginActivity extends AppCompatActivity implements
     private void handleSignInResult(GoogleSignInResult result) {
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
-            findViewById(R.id.login_google).setVisibility(View.GONE);
+            findViewById(R.id.login_google).setVisibility(View.INVISIBLE);
             GoogleSignInAccount acct = result.getSignInAccount();
 
             goToMain(1000);
         } else {
-            Toast.makeText(LoginActivity.this, "Login com Google falhou", Toast.LENGTH_LONG).show();
+            if (!google_autologin) {
+                Toast.makeText(LoginActivity.this, "Login com Google falhou", Toast.LENGTH_LONG).show();
+            }
 
         }
     }
@@ -175,6 +193,7 @@ public class LoginActivity extends AppCompatActivity implements
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
+        google_autologin = false;
     }
     // [END signIn]
 
@@ -227,10 +246,8 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
     public boolean isLoggedIn() {
-        boolean google = mGoogleApiClient != null && mGoogleApiClient.isConnected();
-        return google;
-        //AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        //return accessToken != null;
+        google = mGoogleApiClient != null && mGoogleApiClient.isConnected();
+        return google || facebook;
     }
 
     private void goToMain(int time) {
@@ -257,6 +274,7 @@ public class LoginActivity extends AppCompatActivity implements
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
+                        findViewById(R.id.login_facebook).setVisibility(View.INVISIBLE);
                         goToMain(1000);
 
                     }
@@ -271,6 +289,14 @@ public class LoginActivity extends AppCompatActivity implements
                         Toast.makeText(LoginActivity.this, "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    private void updateWithToken(AccessToken currentAccessToken) {
+        if (currentAccessToken != null) {
+            facebook = true;
+        } else {
+            facebook = false;
+        }
     }
 
 }
