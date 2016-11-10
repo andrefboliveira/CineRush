@@ -75,6 +75,8 @@ public class DrawerActivity extends AppCompatActivity
         if (id == R.id.filter) {
             return true;
         } else if (id == R.id.individual_mode) {
+            Fragment individualMode = new IndividualModeFragment();
+            //getSupportFragmentManager().beginTransaction().replace(, individualMode).commit();
             return true;
         } else if (id == R.id.group_mode) {
             return true;
