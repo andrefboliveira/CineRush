@@ -67,7 +67,15 @@ public class DrawerActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.filter) {
+            return true;
+        } else if (id == R.id.individual_mode) {
+            return true;
+        } else if (id == R.id.group_mode) {
+            return true;
+        } else if (id == R.id.nav_share) {
+            return true;
+        } else if (id == R.id.action_settings) {
             return true;
         }
 
@@ -80,17 +88,13 @@ public class DrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.my_profile) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.events) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.friends) {
 
         } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
