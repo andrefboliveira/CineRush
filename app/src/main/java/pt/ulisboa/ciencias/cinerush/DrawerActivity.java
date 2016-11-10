@@ -91,7 +91,7 @@ public class DrawerActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.filter) {
             return true;
-        } else if (id == R.id.individual_mode) {
+        } /*else if (id == R.id.individual_mode) {
             Intent intent = new Intent(DrawerActivity.this, IndividualModeActivity.class);
 
             //Tentativa de passar os filmes seleccionados para a activity certa-------------------------------
@@ -107,7 +107,7 @@ public class DrawerActivity extends AppCompatActivity
             startActivity(intent);
             finish();
             return true;
-        } else if (id == R.id.nav_share) {
+        }*/ else if (id == R.id.nav_share) {
             return true;
         } else if (id == R.id.action_settings) {
             return true;

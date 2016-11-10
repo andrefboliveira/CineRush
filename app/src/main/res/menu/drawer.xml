@@ -7,16 +7,6 @@
         android:title="Filter"
         app:showAsAction="always"/>
     <item
-        android:id="@+id/individual_mode"
-        android:icon="@drawable/individual_mode"
-        android:title="@string/action_individual_mode"
-        app:showAsAction="always"/>
-    <item
-        android:id="@+id/group_mode"
-        android:icon="@drawable/group_mode"
-        android:title="@string/action_group_mode"
-        app:showAsAction="always"/>
-    <item
         android:id="@+id/nav_share"
         android:icon="@drawable/ic_menu_share"
         app:showAsAction="never"

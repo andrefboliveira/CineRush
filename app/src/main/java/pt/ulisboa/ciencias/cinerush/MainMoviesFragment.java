@@ -1,6 +1,7 @@
 package pt.ulisboa.ciencias.cinerush;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -20,6 +21,7 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import static android.R.attr.id;
 import static java.security.AccessController.getContext;
 
 
@@ -102,6 +104,18 @@ public class MainMoviesFragment extends Fragment {
             public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
                 // Respond to clicks on the actions in the CAB
                 switch (item.getItemId()) {
+                    case R.id.individual_mode:
+                        Intent intent1 = new Intent(getContext(), IndividualModeActivity.class);
+
+                        startActivity(intent1);
+//                        finish();
+                        return true;
+                    case R.id.group_mode:
+                        Intent intent2 = new Intent(getContext(), GroupModeActivity.class);
+
+                        startActivity(intent2);
+//                        finish();
+                        return true;
                     case R.id.action_settings:
 //                        selectedMovies = movieList.getCheckedItemPositions();
                         //   deleteSelectedItems();
@@ -116,7 +130,7 @@ public class MainMoviesFragment extends Fragment {
             public boolean onCreateActionMode(ActionMode mode, Menu menu) {
                 // Inflate the menu for the CAB
                 MenuInflater inflater = mode.getMenuInflater();
-                //inflater.inflate(R.menu.menu_main, menu);
+                inflater.inflate(R.menu.long_press, menu);
                 return true;
             }
 
@@ -139,7 +153,7 @@ public class MainMoviesFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 switch (position) {
                     case 0:
-//                        goToMovieDescription(view);
+
                         break;
                     default:
                         break;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/individual_mode"
+        android:icon="@drawable/individual_mode"
+        android:title="@string/action_individual_mode"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/group_mode"
+        android:icon="@drawable/group_mode"
+        android:title="@string/action_group_mode"
+        app:showAsAction="always"/>
+
+</menu>
