@@ -46,7 +46,7 @@ public class DrawerActivity extends AppCompatActivity
 
         Fragment mainMovies = new MainMoviesFragment();
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.fragment_container, mainMovies).commit();
+                .add(R.id.fragment_container, mainMovies, "main_movies").commit();
     }
 
     @Override
@@ -78,6 +78,12 @@ public class DrawerActivity extends AppCompatActivity
             return true;
         } else if (id == R.id.individual_mode) {
             Intent intent = new Intent(DrawerActivity.this, IndividualModeActivity.class);
+
+            //Tentativa de passar os filmes seleccionados para a activity certa-------------------------------
+//            MainMoviesFragment mainMoviesFrag = (MainMoviesFragment) getSupportFragmentManager().findFragmentByTag("main_movies");
+//            intent.putStringArrayListExtra("selected_movies", mainMoviesFrag.getSelectedMovies());
+            //------------------------------------------------------------------------------------------------
+
             startActivity(intent);
             finish();
             return true;

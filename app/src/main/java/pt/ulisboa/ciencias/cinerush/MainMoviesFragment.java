@@ -4,9 +4,15 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.SparseBooleanArray;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -36,6 +42,9 @@ public class MainMoviesFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+    //Selected movies
+    private SparseBooleanArray selectedMovies;
 
     public MainMoviesFragment() {
         // Required empty public constructor
@@ -74,10 +83,57 @@ public class MainMoviesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_movies, container, false);
         //LISTA DE FILMES
-        ListView movieList = (ListView) view.findViewById(R.id.movie_list);
+        final ListView movieList = (ListView) view.findViewById(R.id.movie_list);
         ArrayList<String> movies = getMovies();
-        ArrayAdapter<String> aa = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, movies);
+        ArrayAdapter<String> aa = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_activated_1, movies);
         movieList.setAdapter(aa);
+        movieList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+
+        movieList.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+
+            @Override
+            public void onItemCheckedStateChanged(ActionMode mode, int position,
+                                                  long id, boolean checked) {
+                // Here you can do something when items are selected/de-selected,
+                // such as update the title in the CAB
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                // Respond to clicks on the actions in the CAB
+                switch (item.getItemId()) {
+                    case R.id.action_settings:
+//                        selectedMovies = movieList.getCheckedItemPositions();
+                        //   deleteSelectedItems();
+                        mode.finish(); // Action picked, so close the CAB
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                // Inflate the menu for the CAB
+                MenuInflater inflater = mode.getMenuInflater();
+                //inflater.inflate(R.menu.menu_main, menu);
+                return true;
+            }
+
+
+            public void onDestroyActionMode(ActionMode mode) {
+                // Here you can make any necessary updates to the activity when
+                // the CAB is removed. By default, selected items are deselected/unchecked.
+            }
+
+
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                // Here you can perform updates to the CAB due to
+                // an invalidate() request
+                return false;
+            }
+        });
+
         movieList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -111,6 +167,10 @@ public class MainMoviesFragment extends Fragment {
         filmes.add("Filme 11");
         filmes.add("Filme 12");*/
         return filmes;
+    }
+
+    public SparseBooleanArray getSelectedMovies(){
+        return selectedMovies;
     }
 
 
