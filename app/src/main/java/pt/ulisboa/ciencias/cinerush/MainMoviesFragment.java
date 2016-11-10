@@ -66,7 +66,7 @@ public class MainMoviesFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
+        /*
         //LISTA DE FILMES
         ListView movieList = (ListView) getActivity().findViewById(R.id.movie_list);
         ArrayList<String> movies = getMovies();
@@ -84,6 +84,7 @@ public class MainMoviesFragment extends Fragment {
                 }
             }
         });
+        */
     }
 
     private ArrayList<String> getMovies(){

@@ -10,8 +10,8 @@
     <string name="title_activity_movie_info">MovieInfo</string>
     <string name="action_individual_mode">Individual Mode</string>
     <string name="action_group_mode">Group Mode</string>
-    <string name="title_activity_individual_mode">IndividualModeActivity</string>
-    <string name="title_activity_group_mode">GroupModeActivity</string>
+    <string name="title_activity_individual_mode">Recomendação Individual</string>
+    <string name="title_activity_group_mode">Recomendação de Grupo</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

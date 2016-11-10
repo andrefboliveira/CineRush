@@ -177,6 +177,7 @@ public class LoginActivity extends AppCompatActivity implements
         if (result.isSuccess()) {
             // Signed in successfully, show authenticated UI.
             findViewById(R.id.login_google).setVisibility(View.INVISIBLE);
+            findViewById(R.id.login_facebook).setVisibility(View.INVISIBLE);
             GoogleSignInAccount acct = result.getSignInAccount();
 
             goToMain(1000);
@@ -275,6 +276,7 @@ public class LoginActivity extends AppCompatActivity implements
                     @Override
                     public void onSuccess(LoginResult loginResult) {
                         findViewById(R.id.login_facebook).setVisibility(View.INVISIBLE);
+                        findViewById(R.id.login_google).setVisibility(View.INVISIBLE);
                         goToMain(1000);
 
                     }

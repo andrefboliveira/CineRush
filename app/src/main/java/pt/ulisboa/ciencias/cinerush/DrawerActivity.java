@@ -1,5 +1,7 @@
 package pt.ulisboa.ciencias.cinerush;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -15,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class DrawerActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, MainMoviesFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +77,14 @@ public class DrawerActivity extends AppCompatActivity
         if (id == R.id.filter) {
             return true;
         } else if (id == R.id.individual_mode) {
-            Fragment individualMode = new IndividualModeFragment();
-            //getSupportFragmentManager().beginTransaction().replace(, individualMode).commit();
+            Intent intent = new Intent(DrawerActivity.this, IndividualModeActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         } else if (id == R.id.group_mode) {
+            Intent intent = new Intent(DrawerActivity.this, GroupModeActivity.class);
+            startActivity(intent);
+            finish();
             return true;
         } else if (id == R.id.nav_share) {
             return true;
@@ -108,5 +114,10 @@ public class DrawerActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }
