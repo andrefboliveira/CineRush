@@ -8,11 +8,4 @@
 
     <string name="action_settings">Settings</string>
 
-
-    <string name="title_activity_movie_info">MovieInfo</string>
-    <string name="action_individual_mode">Individual Mode</string>
-    <string name="action_group_mode">Group Mode</string>
-    <string name="title_activity_individual_mode">IndividualModeActivity</string>
-    <string name="title_activity_group_mode">GroupModeActivity</string>
-
 </resources>
