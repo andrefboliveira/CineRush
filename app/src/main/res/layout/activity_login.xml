@@ -51,7 +51,6 @@
         android:layout_alignStart="@+id/app_name"
         android:layout_alignEnd="@+id/app_name" />
 
-    <!--
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_facebook"
         android:layout_gravity="center_horizontal"
@@ -62,7 +61,6 @@
         android:layout_height="wrap_content"
         android:layout_alignEnd="@+id/login_google"
         android:layout_alignStart="@+id/login_google" />
-    -->
 
 
 </RelativeLayout>

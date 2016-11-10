@@ -12,8 +12,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.facebook.AccessToken;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.appevents.AppEventsLogger;
+import com.facebook.login.LoginManager;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -30,6 +38,10 @@ import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.common.api.Status;
 
+import org.json.JSONObject;
+
+import java.util.Arrays;
+
 
 public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
@@ -40,12 +52,19 @@ public class LoginActivity extends AppCompatActivity implements
     private GoogleApiClient mGoogleApiClient;
     private ProgressDialog mProgressDialog;
 
+    // Custom button
+    private Button fbbutton;
+    // Creating Facebook CallbackManager Value
+    public CallbackManager callbackmanager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
+
         setContentView(R.layout.activity_login);
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        //AppEventsLogger.activateApp(this);
+
+
 
         // Login with google:
 
@@ -70,6 +89,21 @@ public class LoginActivity extends AppCompatActivity implements
 
             findViewById(R.id.login_google).setOnClickListener(this);
 
+            // Initialize layout button
+            fbbutton = (Button) findViewById(R.id.login_facebook);
+            fbbutton.setVisibility(View.VISIBLE);
+
+
+            fbbutton.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    // Call private method
+                    onFblogin();
+                }
+            });
+
+
         }
         else {
             goToMain(1500);
@@ -78,7 +112,9 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
 
-/*
+
+
+
     @Override
     public void onStart() {
         super.onStart();
@@ -102,7 +138,7 @@ public class LoginActivity extends AppCompatActivity implements
                 }
             });
         }
-    }*/
+    }
 
 
     // [START onActivityResult]
@@ -114,6 +150,8 @@ public class LoginActivity extends AppCompatActivity implements
         if (requestCode == RC_SIGN_IN) {
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
             handleSignInResult(result);
+        } else{
+            callbackmanager.onActivityResult(requestCode, resultCode, data);
         }
     }
     // [END onActivityResult]
@@ -207,24 +245,32 @@ public class LoginActivity extends AppCompatActivity implements
         }, time);
     }
 
-/*
-    private void facebookPost() {
-        //check login
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        if (accessToken == null) {
-            Log.d(TAG, ">>>" + "Signed Out");
-        } else {
-            Log.d(TAG, ">>>" + "Signed In");
-        }
+    // Private method to handle Facebook login and callback
+    private void onFblogin()
+    {
+        callbackmanager = CallbackManager.Factory.create();
+
+        // Set permissions
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email","user_photos","public_profile"));
+
+        LoginManager.getInstance().registerCallback(callbackmanager,
+                new FacebookCallback<LoginResult>() {
+                    @Override
+                    public void onSuccess(LoginResult loginResult) {
+                        goToMain(1000);
+
+                    }
+
+                    @Override
+                    public void onCancel() {
+                        Toast.makeText(LoginActivity.this, "Cancelado", Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(FacebookException error) {
+                        Toast.makeText(LoginActivity.this, "Error: " + error.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
-*/
-    /*
-    private void updateWithToken(AccessToken currentAccessToken) {
-        if (currentAccessToken != null) {
-            fillUIWithFacebookInfos(handler);
-        } else {
-            login();
-        }
-    }
-    */
+
 }
