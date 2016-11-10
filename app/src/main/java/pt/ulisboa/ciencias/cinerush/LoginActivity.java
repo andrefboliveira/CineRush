@@ -80,6 +80,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
 
+/*
     @Override
     public void onStart() {
         super.onStart();
@@ -103,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements
                 }
             });
         }
-    }
+    }*/
 
 
     // [START onActivityResult]

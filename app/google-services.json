@@ -13,6 +13,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "785055161980-nu83nbnojft6n9ud6h2kmj6irfom9itb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pt.ulisboa.ciencias.cinerush",
+            "certificate_hash": "F026D0145D628A95F80D7D54D78A6E68CF3C9261"
+          }
+        },
+        {
           "client_id": "785055161980-62m057hu67meu5s5dpidh47vjv2sjm6k.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
