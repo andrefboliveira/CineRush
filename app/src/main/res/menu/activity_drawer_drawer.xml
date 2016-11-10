@@ -3,21 +3,25 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/sessions"
+            android:icon="@drawable/sessions"
+            android:title="Sessões" />
+        <item
             android:id="@+id/my_profile"
             android:icon="@drawable/my_profile"
-            android:title="My Profile" />
+            android:title="Meu Perfil" />
         <item
             android:id="@+id/events"
             android:icon="@drawable/events"
-            android:title="Event History" />
+            android:title="Histório de Eventos" />
         <item
             android:id="@+id/friends"
             android:icon="@drawable/friends"
-            android:title="Friends" />
+            android:title="Amigos" />
         <item
             android:id="@+id/nav_manage"
             android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:title="Configurações" />
     </group>
 
 

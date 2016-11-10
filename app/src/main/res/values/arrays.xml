@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="movie_array">
+        <item>Movie 1</item>
+        <item>Movie 2</item>
+        <item>Movie 3</item>
+        <item>Movie 4</item>
+        <item>Movie 5</item>
+        <item>Movie 6</item>
+        <item>Movie 7</item>
+        <item>Movie 8</item>
+        <item>Movie 9</item>
+        <item>Movie 10</item>
+
+
+
+    </string-array>
+
+    <string-array name="selected_movies_array" >
+        <item>@drawable/fc</item>
+        <item>@drawable/sw</item>
+        <item>@drawable/hp</item>
+    </string-array>
+
+    <string-array name="friend_array">
+        <item></item>
+    </string-array>
+    -->
+
+</resources>

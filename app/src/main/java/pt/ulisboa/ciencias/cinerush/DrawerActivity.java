@@ -101,8 +101,12 @@ public class DrawerActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.my_profile) {
-            // Handle the camera action
+        if (id == R.id.sessions) {
+            /*Fragment mainMovies = getFragmentManager().findFragmentById(R.id.);;
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragment_container, mainMovies).commit();*/
+        } else if (id == R.id.my_profile) {
+
         } else if (id == R.id.events) {
 
         } else if (id == R.id.friends) {
