@@ -35,11 +35,9 @@ public class LoginActivity extends AppCompatActivity implements
         GoogleApiClient.OnConnectionFailedListener,
         View.OnClickListener  {
 
-    private static final String TAG = "TesteSignIN";
     private static final int RC_SIGN_IN = 9001;
 
     private GoogleApiClient mGoogleApiClient;
-    private TextView mStatusTextView;
     private ProgressDialog mProgressDialog;
 
     @Override
@@ -159,7 +157,7 @@ public class LoginActivity extends AppCompatActivity implements
     public void onConnectionFailed(ConnectionResult connectionResult) {
         // An unresolvable error has occurred and Google APIs (including Sign-In) will not
         // be available.
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+        Toast.makeText(LoginActivity.this, "Connection Failed: " + connectionResult, Toast.LENGTH_SHORT).show();
     }
 
     private void showProgressDialog() {
@@ -208,7 +206,7 @@ public class LoginActivity extends AppCompatActivity implements
         }, time);
     }
 
-
+/*
     private void facebookPost() {
         //check login
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
@@ -218,7 +216,7 @@ public class LoginActivity extends AppCompatActivity implements
             Log.d(TAG, ">>>" + "Signed In");
         }
     }
-
+*/
     /*
     private void updateWithToken(AccessToken currentAccessToken) {
         if (currentAccessToken != null) {
