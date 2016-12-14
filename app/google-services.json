@@ -1,7 +1,9 @@
 {
   "project_info": {
     "project_number": "785055161980",
-    "project_id": "firebase-cinerush"
+    "firebase_url": "https://fir-cinerush.firebaseio.com",
+    "project_id": "firebase-cinerush",
+    "storage_bucket": "firebase-cinerush.appspot.com"
   },
   "client": [
     {
@@ -13,20 +15,8 @@
       },
       "oauth_client": [
         {
-          "client_id": "785055161980-nu83nbnojft6n9ud6h2kmj6irfom9itb.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "pt.ulisboa.ciencias.cinerush",
-            "certificate_hash": "F026D0145D628A95F80D7D54D78A6E68CF3C9261"
-          }
-        },
-        {
-          "client_id": "785055161980-62m057hu67meu5s5dpidh47vjv2sjm6k.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "pt.ulisboa.ciencias.cinerush",
-            "certificate_hash": "6201AB2E65817C0C2040A784BA4A653CCF8204D1"
-          }
+          "client_id": "785055161980-mufea307a5gdkbk4ilulbkf879ogn547.apps.googleusercontent.com",
+          "client_type": 3
         },
         {
           "client_id": "785055161980-vqeggk57ug0i6r6j9f3e24374ejemtmc.apps.googleusercontent.com",
@@ -43,11 +33,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "785055161980-mufea307a5gdkbk4ilulbkf879ogn547.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

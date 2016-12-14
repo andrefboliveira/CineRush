@@ -17,6 +17,12 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions {
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE-FIREBASE.txt'
+        exclude 'META-INF/NOTICE'
+    }
 }
 repositories {
     mavenCentral()
@@ -27,10 +33,17 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    /*compile 'com.google.android.gms:play-services:9.8.0'*/
+    compile 'com.google.firebase:firebase-database:9.0.2'
+
+/*
+    -- compile 'com.google.android.gms:play-services:9.8.0'
+
     compile 'com.google.android.gms:play-services-auth:9.8.0'
-    compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    */
+    compile 'com.google.firebase:firebase-auth:10.0.0'
+
+    compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
     compile 'com.android.support:support-v4:25.0.0'
     compile 'com.android.support:recyclerview-v7:25.0.0'
