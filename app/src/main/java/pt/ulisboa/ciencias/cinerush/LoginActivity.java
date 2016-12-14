@@ -1,3 +1,5 @@
+package pt.ulisboa.ciencias.cinerush;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -38,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_in);
+        setContentView(R.layout.activity_login);
 
         // Assign fields
         mSignInButton = (SignInButton) findViewById(R.id.login_google);
