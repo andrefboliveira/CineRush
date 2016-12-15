@@ -1,13 +1,17 @@
 package pt.ulisboa.ciencias.cinerush;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -17,13 +21,23 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class DrawerActivity extends AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+public class MainActivityDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainMoviesFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +56,6 @@ public class DrawerActivity extends AppCompatActivity
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
         tabLayout.setupWithViewPager(mViewPager);
 
-
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -61,7 +65,30 @@ public class DrawerActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        TextView userName = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userName);
+        TextView userEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
+        ImageView userPhoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.userPhoto);
 
+        // Create global configuration and initialize ImageLoader with this config
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        ImageLoader.getInstance().init(config);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // Name, email address, and profile photo Url
+            String name = user.getDisplayName();
+            String email = user.getEmail();
+            Uri photoUrl = user.getPhotoUrl();
+
+            userName.setText(name);
+            userEmail.setText(email);
+            ImageLoader.getInstance().displayImage(photoUrl.toString(), userPhoto);
+
+            // The user's ID, unique to the Firebase project. Do NOT use this value to
+            // authenticate with your backend server, if you have one. Use
+            // FirebaseUser.getToken() instead.
+            String uid = user.getUid();
+        }
     }
 
     @Override
@@ -76,8 +103,10 @@ public class DrawerActivity extends AppCompatActivity
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.drawer, menu);
+        invalidateOptionsMenu();
         return true;
     }
 
@@ -92,7 +121,7 @@ public class DrawerActivity extends AppCompatActivity
         if (id == R.id.filter) {
             return true;
         } /*else if (id == R.id.individual_mode) {
-            Intent intent = new Intent(DrawerActivity.this, IndividualModeActivity.class);
+            Intent intent = new Intent(MainActivityDrawer.this, IndividualModeActivity.class);
 
             //Tentativa de passar os filmes seleccionados para a activity certa-------------------------------
 //            MainMoviesFragment mainMoviesFrag = (MainMoviesFragment) getSupportFragmentManager().findFragmentByTag("main_movies");
@@ -103,7 +132,7 @@ public class DrawerActivity extends AppCompatActivity
             finish();
             return true;
         } else if (id == R.id.group_mode) {
-            Intent intent = new Intent(DrawerActivity.this, GroupModeActivity.class);
+            Intent intent = new Intent(MainActivityDrawer.this, GroupModeActivity.class);
             startActivity(intent);
             finish();
             return true;

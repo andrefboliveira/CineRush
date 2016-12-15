@@ -30,23 +30,22 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // getItem is called to instantiate the fragment for the given page.
         // Return a DummySectionFragment (defined as a static inner class
         // below) with the page number as its lone argument.
-        return new MainMoviesFragment();
-    /*
+
         switch(position) {
-           case 0:
-
-                return new MainMoviesFragment();
-           /* case 1:
-                return new FriendsFragment();
+            case 0:
+                return new ProximityMoviesFragment();
+            case 1:
+                return new CurrentMoviesFragment();
+            case 2:
+                return new PremierMoviesFragment();
+            default:
+                return null;
         }
-
-        return null;
-    */
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     @Override
@@ -60,10 +59,8 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
                 return "Em Cartaz";
             case 2:
                 return "Estreias";
-            case 3:
-                return "Tudo";
+            default:
+                return null;
        }
-       return null;
-
     }
 }

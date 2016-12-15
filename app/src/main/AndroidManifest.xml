@@ -2,7 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="pt.ulisboa.ciencias.cinerush">
 
+    <!-- Include following permission if you load images from Internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Include following permission if you want to cache images on SD card -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -28,26 +31,26 @@
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
         <activity
-            android:name=".DrawerActivity"
+            android:name=".MainActivityDrawer"
             android:label="@string/title_activity_drawer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".IndividualModeActivity"
             android:label="@string/title_activity_individual_mode"
-            android:parentActivityName=".DrawerActivity"
+            android:parentActivityName=".MainActivityDrawer"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.ulisboa.ciencias.cinerush.DrawerActivity" />
+                android:value="pt.ulisboa.ciencias.cinerush.MainActivityDrawer" />
         </activity>
         <activity
             android:name=".GroupModeActivity"
             android:label="@string/title_activity_group_mode"
-            android:parentActivityName=".DrawerActivity"
+            android:parentActivityName=".MainActivityDrawer"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="pt.ulisboa.ciencias.cinerush.DrawerActivity" />
+                android:value="pt.ulisboa.ciencias.cinerush.MainActivityDrawer" />
         </activity>
     </application>
 

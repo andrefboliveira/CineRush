@@ -30,7 +30,6 @@ import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
-import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.firebase.auth.FacebookAuthProvider;
@@ -117,7 +116,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                 Log.d(TAGFacebook, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 // Go back to the main activity
-                startActivity(new Intent(LoginActivity.this, DrawerActivity.class));
+                startActivity(new Intent(LoginActivity.this, MainActivityDrawer.class));
             }
 
             @Override
@@ -143,7 +142,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
             Toast.makeText(this, "Welcome " + user.getEmail(), Toast.LENGTH_SHORT).show();
 
             // Go back to the main activity
-            startActivity(new Intent(this, DrawerActivity.class));
+            startActivity(new Intent(this, MainActivityDrawer.class));
         }
     }
 
@@ -201,7 +200,7 @@ public class LoginActivity extends AppCompatActivity implements GoogleApiClient.
                             Toast.makeText(LoginActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            startActivity(new Intent(LoginActivity.this, DrawerActivity.class));
+                            startActivity(new Intent(LoginActivity.this, MainActivityDrawer.class));
                             finish();
                         }
                     }
