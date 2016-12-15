@@ -113,6 +113,7 @@ public abstract class MainMoviesFragment extends Fragment {
                 // Inflate the menu for the CAB
                 MenuInflater inflater = mode.getMenuInflater();
                 inflater.inflate(R.menu.long_press, menu);
+                //getActivity().getActionBar().hide();
                 return true;
             }
 
@@ -120,6 +121,7 @@ public abstract class MainMoviesFragment extends Fragment {
             public void onDestroyActionMode(ActionMode mode) {
                 // Here you can make any necessary updates to the activity when
                 // the CAB is removed. By default, selected items are deselected/unchecked.
+                //getActivity().getActionBar().show();
             }
 
 

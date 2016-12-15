@@ -14,8 +14,6 @@ import pt.ulisboa.ciencias.cinerush.backend.myApi.MyApi;
 
 import java.io.IOException;
 
-import java.io.IOException;
-
 class EndpointsAsyncTask extends AsyncTask<Pair<Context, String>, Void, String> {
     private static MyApi myApiService = null;
     private Context context;
