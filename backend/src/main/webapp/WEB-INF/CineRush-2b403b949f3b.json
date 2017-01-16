@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "firebase-cinerush",
+  "private_key_id": "2b403b949f3b5feff7ffe41b74dd9174f1851e70",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDD6a1vaymYhB0m\niEXqXs54rTdC0jpSrLCQCEXsflQiFXyQkx45ZL7iRPHMTBxpO0Lf7jOMhu9bXN+R\nSlbKAQLho2W/GfpNHCn6aRwv1RVSTF8gB22Z8oAGATFBzib6H9048ZMU/SBv+V1g\nd16mz9uKZn3A6Mt05DU7qgONPj9pzzDvicsZfviVGk5kI3S2Nk9t+nPfgOA2twe/\nu6i9cNBajw6gne78srMLFSmDW41IqZU/woR7QvqC+zg/EdHUE7H4R3OJGBudDIbA\nVn3XpSqeyToQF2oZu9OWK7O0BgLvJ2K2sVGzb/8fePlFXbbARiz6szPmnUBDgctm\nZA4dHIyJAgMBAAECggEAKJJH/H7wykjx0H0AHZ0snQkiHJB0y5I/rlRIRsWSnsxc\nU4RkCfa3IRyuBmTsrU48dytZOYzoHL+K/QesGYFEG34/H+g9UaK3fsgtsioqlDSE\nrplbNTpnENdGYB5VLA9VPOmqT/prsUSu9b9CtsDs8ihvene7SqXH8Gcw/Rsa/sow\nL2dbHpjYXwsrY1AfzcyyXWqtNAWsVSbUBhFlN6c+jNTndZXuMdBvnLN0xTeRvz/H\nMAoZy9vMtyds2OP3AcTcpDLH8QDBtCWxoDPSJ/vXWpeB/bXO+5P9gn9SOp1KDQSG\nrGnZ34E4mj/dYlAHcmdrk1ETU6SCjrwYsPhvh+7TQQKBgQD7xuvtYQuXZPAbuxqA\njm5eps3+kM1fuT3FrzVwvXPLUvOnWlBX+aCgOM9wcmmhwi4rjqymmhL0q6SCMyKx\n/RakZbWAgDyRD5wK0EMrAPLG+7VVnyPmQPHFBLejhc/n4sVGGmIJ97rikddvkeHR\nWGo2bJVR7X52gTjlb+jmitBTJQKBgQDHMuLuIbQPLTsgzrGGQ8NpFH1dt17qmB+G\nyDeJ18Pc46DBPSXBuKC4tpmYTvVCY9JvgTnlnS1yW3Kz7ZaMdE2WavhU5Yi43IWT\nl9kIOQuVPKOJgGwR96rgMf5/zyd0ttm0eP1MiVMGdN/xBppE4PobBWPZla5Tsdy2\n8AvuwEcIlQKBgCG+98BJUZRpIwWUfmjcrk5hbRrBrcU2vuDQKwmBWxPVenLj2ADy\npGTVOHiJ3T6hGC8eYGW0IPZKSzJoSC4zDeXa/AjNJ1EKFpAceeQ5rFCfTB69xcIG\n0mDl0PdJ6CPccTSENL/BRHs5sPZzRyEYCKRiyWDBxEF98HJQHZdI48NBAoGAeaMe\nJZGZFQdmqsLsbnNkmP71CswVfqVD4xbRqy+BH5o0KKvBKYknQ4PlSLc2VsMD1ikQ\nBKE1BjbHVQ3It52xXx+U4qqDEXc/bf/0fGvxIcE0j5tG4rXctyhwIvWJP2EEkYqs\nChd1BmVJ9jE09Mh4kRV6gnw/RkY+48qzTqhE9/0CgYEA2Oyb1lzDbQ4FRaJQX9ui\nURuSBwT+RUw85dinGVDlAszIqLLY9WWz9lBepNWZpR96rP0b8NCVk7+xRWdSfdIY\nCiMM9A5C/QpTO+AMbdhjkgI2d4yaJ7zP9HMU6e+I6Q+y+UCYApqhMh6iyKHaoAyc\n6YJkU/S5HcKg8eX3CZKpiWM=\n-----END PRIVATE KEY-----\n",
+  "client_email": "servlet@firebase-cinerush.iam.gserviceaccount.com",
+  "client_id": "108837768125710510339",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/servlet%40firebase-cinerush.iam.gserviceaccount.com"
+}
