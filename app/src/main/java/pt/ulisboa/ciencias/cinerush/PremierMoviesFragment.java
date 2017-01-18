@@ -12,6 +12,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import pt.ulisboa.ciencias.cinerush.dados.Estreia;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -62,7 +64,7 @@ public class PremierMoviesFragment extends MainMoviesFragment {
     }
 
     @Override
-    protected ArrayList<String> getMovies(){
+    protected ArrayList<Estreia> getMovies(){
 
         String[] ttt = new String[]{"Filme 1", "Filme 2", "Filme 3"};
 

@@ -21,6 +21,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import pt.ulisboa.ciencias.cinerush.dados.FilmeBasico;
+
 import static android.R.attr.id;
 import static java.security.AccessController.getContext;
 
@@ -177,7 +179,7 @@ public abstract class MainMoviesFragment extends Fragment {
         mListener = null;
     }
 
-    protected abstract ArrayList<String> getMovies();
+    protected abstract ArrayList<? extends FilmeBasico> getMovies();
 
 
     /**
