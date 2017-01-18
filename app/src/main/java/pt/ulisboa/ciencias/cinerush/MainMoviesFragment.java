@@ -1,30 +1,18 @@
 package pt.ulisboa.ciencias.cinerush;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.RecyclerView;
 import android.util.SparseBooleanArray;
-import android.view.ActionMode;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import pt.ulisboa.ciencias.cinerush.dados.FilmeBasico;
-
-import static android.R.attr.id;
-import static java.security.AccessController.getContext;
 
 
 /**
@@ -69,6 +57,17 @@ public abstract class MainMoviesFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_main_movies, container, false);
         //LISTA DE FILMES
+        List<? extends FilmeBasico> moviesList = getMovies();
+
+        MovieRecViewAdapter adapter = new MovieRecViewAdapter(moviesList);
+        RecyclerView myView =  (RecyclerView) view.findViewById(R.id.recyclerview);
+        myView.setHasFixedSize(true);
+        myView.setAdapter(adapter);
+//        LinearLayoutManager llm = new LinearLayoutManager(this);
+//        llm.setOrientation(LinearLayoutManager.VERTICAL);
+//        myView.setLayoutManager(llm);
+
+        /*
         final ListView movieList = (ListView) view.findViewById(R.id.movie_list);
         ArrayList<String> movies = getMovies();
         ArrayAdapter<String> aa = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_activated_1, movies);
@@ -146,6 +145,7 @@ public abstract class MainMoviesFragment extends Fragment {
                 }
             }
         });
+        */
         return view;
     }
 
@@ -179,7 +179,7 @@ public abstract class MainMoviesFragment extends Fragment {
         mListener = null;
     }
 
-    protected abstract ArrayList<? extends FilmeBasico> getMovies();
+    protected abstract List<? extends FilmeBasico> getMovies();
 
 
     /**

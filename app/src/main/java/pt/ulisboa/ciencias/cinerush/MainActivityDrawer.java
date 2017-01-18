@@ -9,6 +9,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,10 +27,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivityDrawer extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MainMoviesFragment.OnFragmentInteractionListener {
@@ -69,9 +69,7 @@ public class MainActivityDrawer extends AppCompatActivity
         TextView userEmail = (TextView) navigationView.getHeaderView(0).findViewById(R.id.userEmail);
         ImageView userPhoto = (ImageView) navigationView.getHeaderView(0).findViewById(R.id.userPhoto);
 
-        // Create global configuration and initialize ImageLoader with this config
-        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
-        ImageLoader.getInstance().init(config);
+
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {
@@ -82,7 +80,16 @@ public class MainActivityDrawer extends AppCompatActivity
 
             userName.setText(name);
             userEmail.setText(email);
-            ImageLoader.getInstance().displayImage(photoUrl.toString(), userPhoto);
+            if (photoUrl == null) {
+                userPhoto
+                    .setImageDrawable(ContextCompat
+                                .getDrawable(MainActivityDrawer.this,
+                                        R.drawable.ic_account_circle_black_36dp));
+            } else {
+                Glide.with(MainActivityDrawer.this)
+                        .load(photoUrl)
+                        .into(userPhoto);
+            }
 
             // The user's ID, unique to the Firebase project. Do NOT use this value to
             // authenticate with your backend server, if you have one. Use
