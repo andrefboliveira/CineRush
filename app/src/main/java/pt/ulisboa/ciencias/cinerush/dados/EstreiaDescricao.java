@@ -12,6 +12,8 @@ public class EstreiaDescricao extends Estreia {
 	String duracao;
 	List<Interprete> interpretes;
 
+	public EstreiaDescricao(){};
+
 	public EstreiaDescricao(int numeroEstreia, String titulo, String tituloOriginal, String genero, String imagem, String pais, int ano,
 							String estreia, String descricao, String duracao) {
         super(numeroEstreia, titulo, tituloOriginal, genero, imagem, estreia);
@@ -57,8 +59,8 @@ public class EstreiaDescricao extends Estreia {
 		return interpretes;
 	}
 
-//	public void setInterpretes(List<Interprete> interpretes) {
-//		this.interpretes = interpretes;
+//	public void setInterpretesID(List<Interprete> interpretesID) {
+//		this.interpretesID = interpretesID;
 //	}
 	
 	public void addInterpretes(Interprete interprete) {

@@ -5,7 +5,10 @@ public class Interprete {
 	int numeroInterprete;
 	String nome;
 	String funcao;
-	
+
+	public Interprete(){
+	}
+
 	public Interprete(int numeroInterprete, String nome, String funcao) {
 		this.numeroInterprete = numeroInterprete;
 		this.nome = nome;

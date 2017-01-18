@@ -13,7 +13,6 @@ public class FilmeBasico {
     public FilmeBasico(){
     }
 
-
 	public FilmeBasico(int numeroFilme, String titulo, String tituloOriginal, String genero, String imagem) {
 		this.numeroFilme = numeroFilme;
 		this.titulo = titulo;

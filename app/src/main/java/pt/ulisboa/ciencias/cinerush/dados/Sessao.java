@@ -1,5 +1,7 @@
 package pt.ulisboa.ciencias.cinerush.dados;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Sessao {
@@ -13,18 +15,32 @@ public class Sessao {
 	String horario;
 	Double latitude;
 	Double longitude;
-	
-	public Sessao(int numeroSessao, FilmeBasico filme, Cinema cinema, String preco, Date dataInicio, Date dataFim,
+
+    static SimpleDateFormat format = new SimpleDateFormat("dd-mm-yyyy");
+
+	public Sessao(){
+	}
+
+	public Sessao(int numeroSessao, FilmeBasico filme, Cinema cinema, String preco, String dataInicio, String dataFim,
 			String horario, Double latitude, Double longitude) {
 		this.numeroSessao = numeroSessao;
 		this.filme = filme;
 		this.cinema = cinema;
 		this.preco = preco;
-		this.dataInicio = dataInicio;
-		this.dataFim = dataFim;
 		this.horario = horario;
 		this.latitude = latitude;
 		this.longitude = longitude;
+
+        try {
+            this.dataInicio = format.parse(dataInicio);
+        } catch (ParseException e1) {
+            this.dataInicio = null;
+        }
+        try {
+            this.dataFim = format.parse(dataFim);
+        } catch (ParseException e1) {
+            this.dataFim = null;
+        }
 	}
 
 	public int getNumeroSessao() {
@@ -63,16 +79,24 @@ public class Sessao {
 		return dataInicio;
 	}
 
-	public void setDataInicio(Date dataInicio) {
-		this.dataInicio = dataInicio;
+	public void setDataInicio(String dataInicio) {
+        try {
+            this.dataInicio = format.parse(dataInicio);
+        } catch (ParseException e1) {
+            this.dataInicio = null;
+        }
 	}
 
 	public Date getDataFim() {
 		return dataFim;
 	}
 
-	public void setDataFim(Date dataFim) {
-		this.dataFim = dataFim;
+	public void setDataFim(String dataFim) {
+        try {
+            this.dataFim = format.parse(dataFim);
+        } catch (ParseException e1) {
+            this.dataFim = null;
+        }
 	}
 
 	public String getHorario() {

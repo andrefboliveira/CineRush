@@ -1,6 +1,5 @@
 package pt.ulisboa.ciencias.cinerush.dados;
 
-import android.net.Uri;
 import java.util.List;
 
 public class FilmeDescricao extends FilmeBasico{
@@ -10,7 +9,9 @@ public class FilmeDescricao extends FilmeBasico{
 	String estreia;
 	String descricao;
 	String duracao;
-	List<Interprete> interpretes;
+	List<Integer> interpretesID;
+
+	public FilmeDescricao(){};
 	
 	public FilmeDescricao(int numeroFilme, String titulo, String tituloOriginal, String genero, String imagem, String pais, int ano,
                           String estreia, String descricao, String duracao) {
@@ -62,20 +63,20 @@ public class FilmeDescricao extends FilmeBasico{
 		this.duracao = duracao;
 	}
 
-	public List<Interprete> getInterpretes() {
-		return interpretes;
+	public List<Integer> getInterpretesID() {
+		return interpretesID;
 	}
 
-//	public void setInterpretes(List<Interprete> interpretes) {
-//		this.interpretes = interpretes;
-//	}
-	
-	public void addInterpretes(Interprete interprete) {
-		this.interpretes.add(interprete);
+	public void setInterpretesID(List<Integer> interpretesID) {
+		this.interpretesID = interpretesID;
 	}
 	
-	public void removeInterpretes(Interprete interprete) {
-		this.interpretes.remove(interprete);
+	public void addInterpretes(Integer interpreteID) {
+		this.interpretesID.add(interpreteID);
+	}
+	
+	public void removeInterpretes(Integer interpreteID) {
+		this.interpretesID.remove(interpreteID);
 	}
 	
 
