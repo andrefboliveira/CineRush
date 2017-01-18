@@ -5,12 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -18,15 +20,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import pt.ulisboa.ciencias.cinerush.dados.EstreiaDescricao;
-import pt.ulisboa.ciencias.cinerush.dados.FilmeBasico;
 import pt.ulisboa.ciencias.cinerush.dados.FilmeDescricao;
+import pt.ulisboa.ciencias.cinerush.dados.Interprete;
+import pt.ulisboa.ciencias.cinerush.dados.Sessao;
 
 public class MovieDetailsActivity extends AppCompatActivity {
 
     private String child;
     private DatabaseReference mFilmeReference;
-    private DatabaseReference mCommentsReference;
-    private ValueEventListener mPostListener;
+    private ValueEventListener movieInfoListener;
     private String mType;
     private String mFilmeId;
 
@@ -38,19 +40,22 @@ public class MovieDetailsActivity extends AppCompatActivity {
     private TextView mDurationView;
     private TextView mDescriptionView;
 
-    private TextView mPersonFunctionView;
-    private TextView mPersonNameView;
+    private RecyclerView mInterpreteRecycler;
+    private RecyclerView mSessaoRecycler;
 
-    private TextView mTeathreNameView;
-    private TextView mScheduleView;
-    private TextView mPriceView;
-
+    private LinearLayoutManager mInterpreteLinearLayoutManager;
+    private LinearLayoutManager mSessaoLinearLayoutManager;
 
 
+    private DatabaseReference mInterpreteReference;
+    private DatabaseReference mSessaoReference;
+
+    private FirebaseRecyclerAdapter<Interprete, InterpreteViewHolder> mFirebaseInterpreteAdapter;
+    private FirebaseRecyclerAdapter<Sessao, SessaoViewHolder> mFirebaseSessaoAdapter;
 
 
-    private RecyclerView mInterpretesRecycler;
-    private RecyclerView mSessoesRecycler;
+    private ProgressBar mInterpreteProgressBar;
+    private ProgressBar mSessaoProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,12 +89,18 @@ public class MovieDetailsActivity extends AppCompatActivity {
         mDurationView = (TextView) findViewById(R.id.duracao);
         mDescriptionView = (TextView) findViewById(R.id.descricao);
 
-        mSessoesRecycler = (RecyclerView) findViewById(R.id.sessoes_recyclerview);
-        mInterpretesRecycler = (RecyclerView) findViewById(R.id.interpretes_recyclerview);
+        mSessaoRecycler = (RecyclerView) findViewById(R.id.sessoes_recyclerview);
+        mInterpreteRecycler = (RecyclerView) findViewById(R.id.interpretes_recyclerview);
 
-        mSessoesRecycler.setLayoutManager(new LinearLayoutManager(this));
-        mInterpretesRecycler.setLayoutManager(new LinearLayoutManager(this));
+        mInterpreteProgressBar = (ProgressBar) findViewById(R.id.progressBarInterpretes);
+        mInterpreteRecycler = (RecyclerView) findViewById(R.id.interpretes_recyclerview);
+        mInterpreteLinearLayoutManager = new LinearLayoutManager(MovieDetailsActivity.this);
+        mInterpreteLinearLayoutManager.setStackFromEnd(true);
 
+        mSessaoProgressBar = (ProgressBar) findViewById(R.id.progressBarSessoes);
+        mSessaoRecycler = (RecyclerView) findViewById(R.id.sessoes_recyclerview);
+        mSessaoLinearLayoutManager = new LinearLayoutManager(MovieDetailsActivity.this);
+        mSessaoLinearLayoutManager.setStackFromEnd(true);
         }
 
         @Override
@@ -98,13 +109,9 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             // Add value event listener to the post
             // [START post_value_event_listener]
-            ValueEventListener movieInfoListener = new ValueEventListener() {
+            movieInfoListener = new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    System.out.println("KEY:"+ dataSnapshot.getRef());
-                    System.out.println("KEY:"+ dataSnapshot.getRef());
-
-
 
                     // Get Post object and use the values to update the UI
                     if(child.equals("Filmes")) {
@@ -141,14 +148,86 @@ public class MovieDetailsActivity extends AppCompatActivity {
                 }
             };
             mFilmeReference.addValueEventListener(movieInfoListener);
-            // [END post_value_event_listener]
 
-            // Keep copy of post listener so we can remove it when app stops
-            mPostListener = movieInfoListener;
 
-            // Listen for comments
-//            mAdapter = new CommentAdapter(this, mCommentsReference);
-//            mSessoesRecycler.setAdapter(mAdapter);
+            // Popular o recycler views
+
+            // Sessoes
+
+            // New child entries
+            mSessaoReference = FirebaseDatabase.getInstance().getReference();
+            mFirebaseSessaoAdapter = new FirebaseRecyclerAdapter<Sessao,
+                    SessaoViewHolder>(
+                    Sessao.class,
+                    R.layout.cardview_sessoes,
+                    SessaoViewHolder.class,
+                    mSessaoReference.child("Cartaz/Sessoes").child(mFilmeId)) {
+
+                @Override
+                protected void populateViewHolder(SessaoViewHolder viewHolder,
+                                                  Sessao sessao, final int position) {
+                    mSessaoProgressBar.setVisibility(ProgressBar.INVISIBLE);
+
+                    //VAI DAR MERDA
+                    viewHolder.mTheatreNameView.setText(sessao.getCinema().getNome());
+
+                    viewHolder.mScheduleView.setText(sessao.getHorario());
+
+                    viewHolder.mPriceView.setText(sessao.getPreco());
+                }
+            };
+
+            mFirebaseSessaoAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                @Override
+                public void onItemRangeInserted(int positionStart, int itemCount) {
+                    super.onItemRangeInserted(positionStart, itemCount);
+                    int friendlyMessageCount = mFirebaseSessaoAdapter.getItemCount();
+                    int lastVisiblePosition =
+                            mSessaoLinearLayoutManager.findLastCompletelyVisibleItemPosition();
+                    // If the recycler view is initially being loaded or the
+                    // user is at the bottom of the list, scroll to the bottom
+                    // of the list to show the newly added message.
+                    if (lastVisiblePosition == -1 ||
+                            (positionStart >= (friendlyMessageCount - 1) &&
+                                    lastVisiblePosition == (positionStart - 1))) {
+                        mSessaoRecycler.scrollToPosition(positionStart);
+                    }
+                }
+            });
+
+            mSessaoRecycler.setLayoutManager(mSessaoLinearLayoutManager);
+            mSessaoRecycler.setAdapter(mFirebaseSessaoAdapter);
+
         }
 
+    public static class InterpreteViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+
+        private TextView mPersonFunctionView;
+        private TextView mPersonNameView;
+
+        public InterpreteViewHolder(View itemView) {
+            super(itemView);
+            mView = itemView;
+            mPersonFunctionView = (TextView)itemView.findViewById(R.id.interprete_funcao);
+            mPersonNameView = (TextView)itemView.findViewById(R.id.interprete_nome);
+        }
+    }
+
+    public static class SessaoViewHolder extends RecyclerView.ViewHolder {
+        View mView;
+
+        private TextView mTheatreNameView;
+        private TextView mScheduleView;
+        private TextView mPriceView;
+
+        public SessaoViewHolder(View itemView) {
+            super(itemView);
+            mView = itemView;
+
+            mTheatreNameView = (TextView)itemView.findViewById(R.id.nome_cinema);;
+            mScheduleView = (TextView)itemView.findViewById(R.id.horario);
+            mPriceView = (TextView)itemView.findViewById(R.id.preco);
+        }
+    }
 }
