@@ -11,11 +11,14 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import pt.ulisboa.ciencias.cinerush.dados.FilmeBasico;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link ProximityMoviesFragment.OnFragmentInteractionListener} interface
+ * { ProximityMoviesFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link ProximityMoviesFragment#newInstance} factory method to
  * create an instance of this fragment.
@@ -30,7 +33,6 @@ public class ProximityMoviesFragment extends MainMoviesFragment {
     private String mParam1;
     private String mParam2;
 
-    private OnFragmentInteractionListener mListener;
 
     public ProximityMoviesFragment() {
         // Required empty public constructor
@@ -63,24 +65,4 @@ public class ProximityMoviesFragment extends MainMoviesFragment {
         }
     }
 
-    @Override
-    protected ArrayList<String> getMovies() {
-
-        String[] ttt = new String[]{"Filme 1", "Filme 2", "Filme 3"};
-
-        ArrayList<String> filmes = new ArrayList<String>(Arrays.asList(ttt));
-        /*filmes.add("Filme 1");
-        filmes.add("Filme 2");
-        filmes.add("Filme 3");
-        filmes.add("Filme 4");
-        filmes.add("Filme 5");
-        filmes.add("Filme 6");
-        filmes.add("Filme 7");
-        filmes.add("Filme 8");
-        filmes.add("Filme 9");
-        filmes.add("Filme 10");
-        filmes.add("Filme 11");
-        filmes.add("Filme 12");*/
-        return filmes;
-    }
 }

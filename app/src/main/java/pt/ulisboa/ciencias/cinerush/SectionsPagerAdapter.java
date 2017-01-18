@@ -31,16 +31,18 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         // Return a DummySectionFragment (defined as a static inner class
         // below) with the page number as its lone argument.
 
-        switch(position) {
-            case 0:
-                return new ProximityMoviesFragment();
-            case 1:
-                return new CurrentMoviesFragment();
-            case 2:
-                return new PremierMoviesFragment();
-            default:
-                return null;
-        }
+//        switch(position) {
+//            case 0:
+//                return new ProximityMoviesFragment();
+//            case 1:
+//                return new CurrentMoviesFragment();
+//            case 2:
+//                return new PremierMoviesFragment();
+//            default:
+//                return null;
+//        }
+//
+        return new CurrentMoviesFragment();
     }
 
     @Override

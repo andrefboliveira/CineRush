@@ -1,31 +1,21 @@
 package pt.ulisboa.ciencias.cinerush;
 
-import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.bumptech.glide.Glide;
 
-
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 import pt.ulisboa.ciencias.cinerush.dados.FilmeBasico;
 
@@ -40,10 +30,10 @@ import pt.ulisboa.ciencias.cinerush.dados.FilmeBasico;
 public class CurrentMoviesFragment extends MainMoviesFragment {
 
     private DatabaseReference mFirebaseDatabaseReference;
-    private FirebaseRecyclerAdapter<FilmeBasico, MovieRecViewAdapter.MovieViewHolder> mFirebaseAdapter;
+    private FirebaseRecyclerAdapter<FilmeBasico, MovieViewHolder> mFirebaseAdapter;
 
     private ProgressBar mProgressBar;
-    private RecyclerView mMessageRecyclerView;
+    private RecyclerView mMovieRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -93,48 +83,22 @@ public class CurrentMoviesFragment extends MainMoviesFragment {
 
         View view = super.onCreateView(inflater, container, savedInstanceState);
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-        mMessageRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
-        mLinearLayoutManager = new LinearLayoutManager(this.getActivity());
+        mMovieRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
+        mLinearLayoutManager = new LinearLayoutManager(getContext());
         mLinearLayoutManager.setStackFromEnd(true);
-
-        return view;
-    }
-
-    @Override
-    protected List<? extends FilmeBasico> getMovies(){
-
-//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = database.getReference("Cartaz/Filmes");
-//
-//        // Attach a listener to read the data at our posts reference
-//        ref.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                FilmeBasico filme = dataSnapshot.getValue(FilmeBasico.class);
-//                System.out.println(filme);
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                System.out.println("The read failed: " + databaseError.getCode());
-//            }
-//        });
-
-        // Firebase instance variables
-
 
         // New child entries
         mFirebaseDatabaseReference = FirebaseDatabase.getInstance().getReference();
         mFirebaseAdapter = new FirebaseRecyclerAdapter<FilmeBasico,
-                MovieRecViewAdapter.MovieViewHolder>(
+                MovieViewHolder>(
                 FilmeBasico.class,
-                R.layout.cardview,
-                MovieRecViewAdapter.MovieViewHolder.class,
+                R.layout.cardview_main_movies,
+                MovieViewHolder.class,
                 mFirebaseDatabaseReference.child("Cartaz/Filmes")) {
 
             @Override
-            protected void populateViewHolder(MovieRecViewAdapter.MovieViewHolder viewHolder,
-                                              FilmeBasico filmeBasico, int position) {
+            protected void populateViewHolder(MovieViewHolder viewHolder,
+                                              FilmeBasico filmeBasico, final int position) {
                 mProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
                 Uri image_uri = filmeBasico.getImagem();
@@ -153,6 +117,19 @@ public class CurrentMoviesFragment extends MainMoviesFragment {
 
                 viewHolder.genero_textview.setText(filmeBasico.getGenero());
 
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        String movieNumber = mFirebaseAdapter.getRef(position).getKey();
+                        Intent intent = new Intent(getContext(), MovieDetailsActivity.class);
+                        Bundle extras = new Bundle();
+                        extras.putString("type", "Filme");
+                        extras.putString("value", movieNumber);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                    }
+                });
+
             }
         };
 
@@ -169,14 +146,14 @@ public class CurrentMoviesFragment extends MainMoviesFragment {
                 if (lastVisiblePosition == -1 ||
                         (positionStart >= (friendlyMessageCount - 1) &&
                                 lastVisiblePosition == (positionStart - 1))) {
-                    mMessageRecyclerView.scrollToPosition(positionStart);
+                    mMovieRecyclerView.scrollToPosition(positionStart);
                 }
             }
         });
 
-        mMessageRecyclerView.setLayoutManager(mLinearLayoutManager);
-        mMessageRecyclerView.setAdapter(mFirebaseAdapter);
+        mMovieRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mMovieRecyclerView.setAdapter(mFirebaseAdapter);
 
-        return null;
+        return view;
     }
 }

@@ -9,13 +9,17 @@ public class FilmeBasico {
 	String tituloOriginal;
 	String genero;
 	Uri imagem;
-	
-	public FilmeBasico(int id, String titulo, String tituloOriginal, String genero, Uri imagem) {
-		this.numeroFilme = id;
+
+    public FilmeBasico(){
+    }
+
+
+	public FilmeBasico(int numeroFilme, String titulo, String tituloOriginal, String genero, String imagem) {
+		this.numeroFilme = numeroFilme;
 		this.titulo = titulo;
         this.tituloOriginal = tituloOriginal;
         this.genero = genero;
-		this.imagem = imagem;
+		this.imagem = Uri.parse(imagem);
 	}
 	public int getNumeroFilme() {
 		return numeroFilme;
@@ -41,7 +45,7 @@ public class FilmeBasico {
 	public Uri getImagem() {
 		return imagem;
 	}
-	public void setImagem(Uri imagem) {
-		this.imagem = imagem;
-	}
+    public void setImagem(String imagem) {
+        this.imagem = Uri.parse(imagem);
+    }
 }

@@ -12,7 +12,7 @@ public class FilmeDescricao extends FilmeBasico{
 	String duracao;
 	List<Interprete> interpretes;
 	
-	public FilmeDescricao(int numeroFilme, String titulo, String tituloOriginal, String genero, Uri imagem, String pais, int ano,
+	public FilmeDescricao(int numeroFilme, String titulo, String tituloOriginal, String genero, String imagem, String pais, int ano,
                           String estreia, String descricao, String duracao) {
 		super(numeroFilme, titulo, tituloOriginal, genero, imagem);
 		this.pais = pais;

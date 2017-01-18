@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import pt.ulisboa.ciencias.cinerush.dados.Estreia;
 
@@ -63,24 +64,4 @@ public class PremierMoviesFragment extends MainMoviesFragment {
         }
     }
 
-    @Override
-    protected ArrayList<Estreia> getMovies(){
-
-        String[] ttt = new String[]{"Filme 1", "Filme 2", "Filme 3"};
-
-        ArrayList<String> filmes = new ArrayList<String>(Arrays.asList(ttt));
-        /*filmes.add("Filme 1");
-        filmes.add("Filme 2");
-        filmes.add("Filme 3");
-        filmes.add("Filme 4");
-        filmes.add("Filme 5");
-        filmes.add("Filme 6");
-        filmes.add("Filme 7");
-        filmes.add("Filme 8");
-        filmes.add("Filme 9");
-        filmes.add("Filme 10");
-        filmes.add("Filme 11");
-        filmes.add("Filme 12");*/
-        return filmes;
-    }
 }

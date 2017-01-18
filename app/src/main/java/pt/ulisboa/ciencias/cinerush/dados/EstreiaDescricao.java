@@ -12,11 +12,9 @@ public class EstreiaDescricao extends Estreia {
 	String duracao;
 	List<Interprete> interpretes;
 
-	public EstreiaDescricao(int numeroEstreia, String titulo, String tituloOriginal, String genero, Uri imagem, String pais, int ano,
+	public EstreiaDescricao(int numeroEstreia, String titulo, String tituloOriginal, String genero, String imagem, String pais, int ano,
 							String estreia, String descricao, String duracao) {
         super(numeroEstreia, titulo, tituloOriginal, genero, imagem, estreia);
-		this.tituloOriginal = tituloOriginal;
-		this.genero = genero;
 		this.pais = pais;
 		this.ano = ano;
 		this.descricao = descricao;

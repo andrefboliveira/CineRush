@@ -1,5 +1,6 @@
 package pt.ulisboa.ciencias.cinerush;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -31,8 +32,10 @@ import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static java.security.AccessController.getContext;
+
 public class MainActivityDrawer extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, MainMoviesFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
     private SectionsPagerAdapter mSectionsPagerAdapter;
@@ -175,10 +178,5 @@ public class MainActivityDrawer extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-    @Override
-    public void onFragmentInteraction(Uri uri) {
-
     }
 }

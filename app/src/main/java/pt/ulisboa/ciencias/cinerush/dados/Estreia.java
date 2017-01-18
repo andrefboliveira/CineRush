@@ -6,8 +6,9 @@ import java.util.List;
 public class Estreia extends FilmeBasico {
 
 	String estreia;
-	
-	public Estreia (int numeroEstreia, String titulo, String tituloOriginal, String genero, Uri imagem, String estreia) {
+
+
+	public Estreia (int numeroEstreia, String titulo, String tituloOriginal, String genero, String imagem, String estreia) {
         super(numeroEstreia, titulo, tituloOriginal, genero, imagem);
 		this.estreia = estreia;
 	}
@@ -16,7 +17,6 @@ public class Estreia extends FilmeBasico {
 	public String getEstreia() {
 		return estreia;
 	}
-
 	public void setEstreia(String estreia) {
 		this.estreia = estreia;
 	}

@@ -52,6 +52,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="pt.ulisboa.ciencias.cinerush.MainActivityDrawer" />
         </activity>
+        <activity
+            android:name=".MovieDetailsActivity"
+            android:label="@string/title_activity_movie_details"
+            android:parentActivityName=".MainActivityDrawer"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="pt.ulisboa.ciencias.cinerush.MainActivityDrawer" />
+        </activity>
     </application>
 
 </manifest>
