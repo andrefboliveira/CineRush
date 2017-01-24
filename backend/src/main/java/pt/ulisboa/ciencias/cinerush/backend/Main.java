@@ -34,7 +34,10 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-
+/*
+* Classe para guardar os dados no firebase. Iria ser semelhante a classe fartaz mas guardaria directamente no FirebaseDatabase.
+* Ao aceder FirebaseDatabase da null pointer exception
+*/
 public class Main {
 
     public static void main(String[] args) throws FileNotFoundException {
@@ -51,79 +54,7 @@ public class Main {
         DatabaseReference ref = database.getReferenceFromUrl("https://fir-cinerush.firebaseio.com/Cartaz");
 
 
-    /*
-        Client client = Client.create();
-        WebResource resource = client.resource("http://ws.sercultur.pt/ws.asmx/CartazCinemaFilmesExt");
-        MultivaluedMap queryParams = new MultivaluedMapImpl();
-        queryParams.add("Pais", "");
-        queryParams.add("Genero", "");
-        queryParams.add("Classificacao", "");
-        queryParams.add("Distrito", "");
-        queryParams.add("Concelho", "");
-        queryParams.add("CicloFestival", "");
-        queryParams.add("DiasProgramacao", "");
-        queryParams.add("Destaques", "");
-        queryParams.add("Opcionais", "");
-        queryParams.add("EspacoAcademico", "");
-
-        ClientResponse response = resource.post(ClientResponse.class, queryParams);
-
-        //System.out.println(response.getEntity(String.class));
-
-
-        String xmlToParse = response.getEntity(String.class);
-
-        System.out.println(xmlToParse);
-
-        try {
-            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder  builder = factory.newDocumentBuilder();
-            Document doc = builder.parse( new InputSource( new StringReader( xmlToParse ) ));
-
-            // optional, but recommended
-            doc.getDocumentElement().normalize();
-
-            // Vamos imprimir o nome do nó raiz do XML => Cinema
-            System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
-
-            // Vamos agora obter os nós Row que tem efetivamente informaçao sobre o cinema
-            NodeList nList = doc.getFirstChild().getChildNodes();
-
-
-            // Para poderes aceder aos nós que criaste anteriormente tens de aceder aos nós que estão na NodeList
-            for (int index = 0; index < nList.getLength(); index++) {
-
-                // Obtens o próximo nó da lista
-                Node nNode = nList.item(index);
-
-                // Impriimes o nome do nó que tens. Neste momento, tens um nó Row
-                System.out.println("\nCurrent Element :" + nNode.getNodeName() + " at index: " + index);
-
-                // Existem vários tipos de nó. Estás a garantir que é um Elemento e que tem outros Elementos lá dentro.
-                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
-                    Element eElement = (Element) nNode;
-
-                    // getElementsByTagName, devolve-te a lista de elementos com a Tag "Numero" dentro do elemento Row.
-                    //Aquilo devolve sempre uma lista, como só tens um, garantidamente o elemento que queres aceder esta
-                    // na posiçao 0 e portanto fazes item(0)
-                    String numero = eElement.getElementsByTagName("Numero").item(0).getTextContent();
-                    String creationDate = eElement.getElementsByTagName("DataCriacao").item(0).getTextContent();
-                    System.out.println("Numero id : " + numero );
-                    System.out.println("DataCriacao : " + creationDate);
-
-                    // Senao quiseres estar a alocar string para guardar o conteudo dos elementos podes simplesmente invocar diretamente (:
-                    System.out.println("DataEdicao : " + eElement.getElementsByTagName("DataEdicao").item(0).getTextContent());
-                    System.out.println("Filme : " + eElement.getElementsByTagName("Filme").item(0).getTextContent());
-                    System.out.println("TituloOriginal : " + eElement.getElementsByTagName("TituloOriginal").item(0).getTextContent());
-
-                }
-            }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } */
+    
     }
 
 }
