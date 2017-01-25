@@ -9,8 +9,10 @@ public class FilmeBasico {
 	String tituloOriginal;
 	String genero;
 	Uri imagem;
+	boolean isSelected = false;
 
-    public FilmeBasico(){
+
+	public FilmeBasico(){
     }
 
 	public FilmeBasico(int numeroFilme, String titulo, String tituloOriginal, String genero, String imagem) {
@@ -47,4 +49,6 @@ public class FilmeBasico {
     public void setImagem(String imagem) {
         this.imagem = Uri.parse(imagem);
     }
+    public void setSelected(boolean selected) { isSelected = selected; }
+    public boolean isSelected() { return isSelected; }
 }

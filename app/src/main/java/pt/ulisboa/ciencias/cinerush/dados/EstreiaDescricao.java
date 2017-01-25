@@ -10,7 +10,7 @@ public class EstreiaDescricao extends Estreia {
 	int ano;
 	String descricao;
 	String duracao;
-	List<Interprete> interpretes;
+	List<Integer> interpretesID;
 
 	public EstreiaDescricao(){};
 
@@ -55,19 +55,19 @@ public class EstreiaDescricao extends Estreia {
 		this.duracao = duracao;
 	}
 
-	public List<Interprete> getInterpretes() {
-		return interpretes;
+	public List<Integer> getInterpretesID() {
+		return interpretesID;
 	}
 
-//	public void setInterpretesID(List<Interprete> interpretesID) {
-//		this.interpretesID = interpretesID;
-//	}
-	
-	public void addInterpretes(Interprete interprete) {
-		this.interpretes.add(interprete);
+	public void setInterpretesID(List<Integer> interpretesID) {
+		this.interpretesID = interpretesID;
 	}
-	
-	public void removeInterpretes(Interprete interprete) {
-		this.interpretes.remove(interprete);
+
+	public void addInterpretes(Integer interpreteID) {
+		this.interpretesID.add(interpreteID);
+	}
+
+	public void removeInterpretes(Integer interpreteID) {
+		this.interpretesID.remove(interpreteID);
 	}
 }

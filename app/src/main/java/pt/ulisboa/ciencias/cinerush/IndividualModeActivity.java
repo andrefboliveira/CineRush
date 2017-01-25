@@ -82,7 +82,6 @@ public class IndividualModeActivity extends AppCompatActivity {
         for (int i = 0 ; i < selectedMoviesTypedArray.length() ; ++i) {
             // Create new ImageView
             imageItem = new ImageView(this);
-            System.out.println("Valor do i no primeiro for: " + i);
             // Set the image view resource
             imageItem.setImageResource(selectedMoviesTypedArray.getResourceId(i, -1));
 
@@ -101,6 +100,7 @@ public class IndividualModeActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
+
                 Intent upIntent = NavUtils.getParentActivityIntent(this);
                 if (NavUtils.shouldUpRecreateTask(this, upIntent)) {
                     // This activity is NOT part of this app's task, so create a new task

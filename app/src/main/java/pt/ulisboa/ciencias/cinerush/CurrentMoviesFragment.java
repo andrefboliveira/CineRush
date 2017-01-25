@@ -3,28 +3,39 @@ package pt.ulisboa.ciencias.cinerush;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.bumptech.glide.Glide;
+import com.google.firebase.database.Query;
 
+
+import java.util.ArrayList;
 
 import pt.ulisboa.ciencias.cinerush.dados.FilmeBasico;
+
+import static android.R.attr.mode;
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
  * {@link CurrentMoviesFragment} interface
  * to handle interaction events.
- * Use the {@link CurrentMoviesFragment#newInstance} factory method to
+ * Use the {@link CurrentMoviesFragment} factory method to
  * create an instance of this fragment.
  */
 public class CurrentMoviesFragment extends MainMoviesFragment {
@@ -36,44 +47,8 @@ public class CurrentMoviesFragment extends MainMoviesFragment {
     private RecyclerView mMovieRecyclerView;
     private LinearLayoutManager mLinearLayoutManager;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
     public CurrentMoviesFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CurrentMoviesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CurrentMoviesFragment newInstance(String param1, String param2) {
-        CurrentMoviesFragment fragment = new CurrentMoviesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -130,30 +105,57 @@ public class CurrentMoviesFragment extends MainMoviesFragment {
                     }
                 });
 
+                viewHolder.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        // TODO Auto-generated method stub
+                        return true;
+                    }
+                });
+
             }
         };
 
-        mFirebaseAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-            @Override
-            public void onItemRangeInserted(int positionStart, int itemCount) {
-                super.onItemRangeInserted(positionStart, itemCount);
-                int friendlyMessageCount = mFirebaseAdapter.getItemCount();
-                int lastVisiblePosition =
-                        mLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                // If the recycler view is initially being loaded or the
-                // user is at the bottom of the list, scroll to the bottom
-                // of the list to show the newly added message.
-                if (lastVisiblePosition == -1 ||
-                        (positionStart >= (friendlyMessageCount - 1) &&
-                                lastVisiblePosition == (positionStart - 1))) {
-                    mMovieRecyclerView.scrollToPosition(positionStart);
-                }
-            }
-        });
-
+//
+        mMovieRecyclerView.setHasFixedSize(true);//talvez remover
         mMovieRecyclerView.setLayoutManager(mLinearLayoutManager);
         mMovieRecyclerView.setAdapter(mFirebaseAdapter);
 
         return view;
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @return A new instance of fragment PremierMoviesFragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static CurrentMoviesFragment newInstance() {
+        CurrentMoviesFragment fragment = new CurrentMoviesFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.individual_mode:
+                Intent intent1 = new Intent(getContext(), IndividualModeActivity.class);
+
+                startActivity(intent1);
+//                        finish();
+                return true;
+            case R.id.group_mode:
+                Intent intent2 = new Intent(getContext(), GroupModeActivity.class);
+
+                startActivity(intent2);
+//                        finish();
+                return true;
+            default:
+                return false;
+        }
     }
 }

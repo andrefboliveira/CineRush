@@ -7,8 +7,8 @@ import java.util.Date;
 public class Sessao {
 	
 	int numeroSessao;
-	int filme;
-	int cinema;
+	int numeroFilme;
+	int numeroCinema;
 	String preco;
 	Date dataInicio;
 	Date dataFim;
@@ -21,11 +21,11 @@ public class Sessao {
 	public Sessao(){
 	}
 
-	public Sessao(int numeroSessao, int filme, int cinema, String preco, String dataInicio, String dataFim,
-			String horario, Double latitude, Double longitude) {
+	public Sessao(int numeroSessao, int numeroFilme, int numeroCinema, String preco, String dataInicio, String dataFim,
+                  String horario, Double latitude, Double longitude) {
 		this.numeroSessao = numeroSessao;
-		this.filme = filme;
-		this.cinema = cinema;
+		this.numeroFilme = numeroFilme;
+		this.numeroCinema = numeroCinema;
 		this.preco = preco;
 		this.horario = horario;
 		this.latitude = latitude;
@@ -51,20 +51,20 @@ public class Sessao {
 		this.numeroSessao = numeroSessao;
 	}
 
-	public int getFilme() {
-		return filme;
+	public int getNumeroFilme() {
+		return numeroFilme;
 	}
 
-	public void setFilme(int filme) {
-		this.filme = filme;
+	public void setNumeroFilme(int numeroFilme) {
+		this.numeroFilme = numeroFilme;
 	}
 
-	public int getCinema() {
-		return cinema;
+	public int getNumeroCinema() {
+		return numeroCinema;
 	}
 
-	public void setCinema(int cinema) {
-		this.cinema = cinema;
+	public void setNumeroCinema(int numeroCinema) {
+		this.numeroCinema = numeroCinema;
 	}
 
 	public String getPreco() {

@@ -2,6 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        android:id="@+id/individual_mode"
+        android:icon="@drawable/individual_mode"
+        android:title="@string/action_individual_mode"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/group_mode"
+        android:icon="@drawable/group_mode"
+        android:title="@string/action_group_mode"
+        app:showAsAction="always"/>
+<!--
+    <item
         android:id="@+id/filter"
         android:icon="@drawable/filter"
         android:title="Filter"
@@ -10,7 +21,7 @@
         android:id="@+id/nav_share"
         android:icon="@drawable/ic_menu_share"
         app:showAsAction="never"
-        android:title="Share" />
+        android:title="Share" />-->
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"

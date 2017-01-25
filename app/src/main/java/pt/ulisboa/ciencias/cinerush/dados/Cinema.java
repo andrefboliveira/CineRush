@@ -1,5 +1,8 @@
 package pt.ulisboa.ciencias.cinerush.dados;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Cinema {
 
 	int numeroCinema;
@@ -12,7 +15,12 @@ public class Cinema {
 	String webSite;
 	String bilheteira;
 	String email;
-	
+	static Map<Integer, Cinema> cartazCinema = new HashMap<>();
+
+	public Cinema(){
+        cartazCinema.put(-1, this);
+	}
+
 	public Cinema(int numeroCinema, String nome, String morada, String codigoPostal, String distrito, String concelho,
 			String telefone, String webSite, String bilheteira, String email) {
 		this.numeroCinema = numeroCinema;
@@ -25,6 +33,7 @@ public class Cinema {
 		this.webSite = webSite;
 		this.bilheteira = bilheteira;
 		this.email = email;
+        cartazCinema.put(numeroCinema, this);
 	}
 
 	public int getNumeroCinema() {
@@ -33,6 +42,12 @@ public class Cinema {
 
 	public void setNumeroCinema(int numeroCinema) {
 		this.numeroCinema = numeroCinema;
+
+        Cinema chaveErrada = cartazCinema.get(-1);
+        if(chaveErrada != null && this.equals(chaveErrada)){
+            cartazCinema.put(numeroCinema, chaveErrada);
+            cartazCinema.remove(-1);
+        }
 	}
 
 	public String getNome() {
@@ -106,4 +121,6 @@ public class Cinema {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+
+    public static Cinema getFromCartaz(int numeroCinema){ return cartazCinema.get(numeroCinema); }
 }

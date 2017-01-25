@@ -1,10 +1,13 @@
 package pt.ulisboa.ciencias.cinerush;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -19,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import pt.ulisboa.ciencias.cinerush.dados.Cinema;
 import pt.ulisboa.ciencias.cinerush.dados.EstreiaDescricao;
 import pt.ulisboa.ciencias.cinerush.dados.FilmeDescricao;
 import pt.ulisboa.ciencias.cinerush.dados.Interprete;
@@ -74,7 +78,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
             child = "Estreias";
         }
         mFilmeId = getIntent().getStringExtra("value");
-
 
         // Initialize Database
         mFilmeReference = FirebaseDatabase.getInstance().getReference()
@@ -152,53 +155,140 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
             // Popular o recycler views
 
-            // Sessoes
+            // Sessoes------------------------------------------------------------------------------
+
+            if ("filmes".equals(child.toLowerCase())){
+                // New child entries
+                mSessaoReference = FirebaseDatabase.getInstance().getReference();
+                mFirebaseSessaoAdapter = new FirebaseRecyclerAdapter<Sessao,
+                        SessaoViewHolder>(
+                        Sessao.class,
+                        R.layout.cardview_sessoes,
+                        SessaoViewHolder.class,
+                        mSessaoReference.child("Cartaz/Sessoes").child(mFilmeId)) {
+
+                    @Override
+                    protected void populateViewHolder(final SessaoViewHolder viewHolder,
+                                                      final Sessao sessao, final int position) {
+                        mSessaoProgressBar.setVisibility(ProgressBar.INVISIBLE);
+
+                        String cinemaId = String.valueOf(sessao.getNumeroCinema());
+                        viewHolder.mScheduleView.setText(sessao.getHorario());
+                        viewHolder.mPriceView.setText(sessao.getPreco());
+
+
+
+
+
+                        final DatabaseReference cinemaReference = FirebaseDatabase.getInstance().getReference()
+                                .child("Cartaz/Cinemas/PorID").child(cinemaId);
+
+
+                        ValueEventListener cinemaListener = new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                // Get Post object and use the values to update the UI
+                                Cinema cinema = dataSnapshot.getValue(Cinema.class);
+
+
+                                viewHolder.mTheatreNameView.setText(cinema.getNome());
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                // Getting Post failed, log a message
+                                Toast.makeText(MovieDetailsActivity.this,
+                                        "Falha ao carregar o cinema.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        };
+
+                        cinemaReference.addValueEventListener(cinemaListener);
+
+                    }
+                };
+
+
+                mSessaoRecycler.setLayoutManager(mSessaoLinearLayoutManager);
+                mSessaoRecycler.setAdapter(mFirebaseSessaoAdapter);
+            }
+            else{
+                mSessaoProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                mSessaoRecycler.setVisibility(RecyclerView.INVISIBLE);
+                TextView tagSessoes = (TextView) findViewById(R.id.tag_sessoes);
+                tagSessoes.setVisibility(TextView.INVISIBLE);
+            }
+            //--------------------------------------------------------------------------------------
+
+            // Interpretes--------------------------------------------------------------------------
 
             // New child entries
-            mSessaoReference = FirebaseDatabase.getInstance().getReference();
-            mFirebaseSessaoAdapter = new FirebaseRecyclerAdapter<Sessao,
-                    SessaoViewHolder>(
-                    Sessao.class,
-                    R.layout.cardview_sessoes,
-                    SessaoViewHolder.class,
-                    mSessaoReference.child("Cartaz/Sessoes").child(mFilmeId)) {
+            mInterpreteReference = FirebaseDatabase.getInstance().getReference();
+            mFirebaseInterpreteAdapter = new FirebaseRecyclerAdapter<Interprete,
+                    InterpreteViewHolder>(
+                    Interprete.class,
+                    R.layout.cardview_interpretes,
+                    InterpreteViewHolder.class,
+                    //alterar isto em conformidade
+                    mInterpreteReference.child("Cartaz/Filmes").child(mFilmeId).child("interpretesInfo")) {
 
                 @Override
-                protected void populateViewHolder(SessaoViewHolder viewHolder,
-                                                  Sessao sessao, final int position) {
-                    mSessaoProgressBar.setVisibility(ProgressBar.INVISIBLE);
+                protected void populateViewHolder(InterpreteViewHolder viewHolder,
+                                                  Interprete interprete, final int position) {
+                    mInterpreteProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
-                    //VAI DAR MERDA
-                    viewHolder.mTheatreNameView.setText(sessao.getCinema().getNome());
+                    viewHolder.mPersonFunctionView.setText(interprete.getFuncao());
+                    viewHolder.mPersonNameView.setText(interprete.getNome());
 
-                    viewHolder.mScheduleView.setText(sessao.getHorario());
-
-                    viewHolder.mPriceView.setText(sessao.getPreco());
                 }
             };
 
-            mFirebaseSessaoAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                @Override
-                public void onItemRangeInserted(int positionStart, int itemCount) {
-                    super.onItemRangeInserted(positionStart, itemCount);
-                    int friendlyMessageCount = mFirebaseSessaoAdapter.getItemCount();
-                    int lastVisiblePosition =
-                            mSessaoLinearLayoutManager.findLastCompletelyVisibleItemPosition();
-                    // If the recycler view is initially being loaded or the
-                    // user is at the bottom of the list, scroll to the bottom
-                    // of the list to show the newly added message.
-                    if (lastVisiblePosition == -1 ||
-                            (positionStart >= (friendlyMessageCount - 1) &&
-                                    lastVisiblePosition == (positionStart - 1))) {
-                        mSessaoRecycler.scrollToPosition(positionStart);
-                    }
-                }
-            });
-
-            mSessaoRecycler.setLayoutManager(mSessaoLinearLayoutManager);
-            mSessaoRecycler.setAdapter(mFirebaseSessaoAdapter);
+            mInterpreteRecycler.setLayoutManager(mInterpreteLinearLayoutManager);
+            mInterpreteRecycler.setAdapter(mFirebaseInterpreteAdapter);
 
         }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        menu.clear();
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.drawer, menu);
+        invalidateOptionsMenu();
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.individual_mode) {
+            Intent intent = new Intent(MovieDetailsActivity.this, IndividualModeActivity.class);
+            Bundle extras = getIntent().getExtras();
+            extras.putString("value", mFilmeId);
+            intent.putExtras(extras);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.group_mode) {
+            Intent intent = new Intent(MovieDetailsActivity.this, GroupModeActivity.class);
+            Bundle extras = new Bundle();
+            extras.putString("value", mFilmeId);
+            intent.putExtras(extras);
+            startActivity(intent);
+            finish();
+            return true;
+        } else if (id == R.id.action_settings) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 
     public static class InterpreteViewHolder extends RecyclerView.ViewHolder {
         View mView;

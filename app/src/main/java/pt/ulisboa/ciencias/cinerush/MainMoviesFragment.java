@@ -146,8 +146,4 @@ public abstract class MainMoviesFragment extends Fragment {
         */
         return view;
     }
-
-    public SparseBooleanArray getSelectedMovies(){
-        return selectedMovies;
-    }
 }

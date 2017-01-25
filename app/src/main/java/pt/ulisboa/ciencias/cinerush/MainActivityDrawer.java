@@ -127,10 +127,11 @@ public class MainActivityDrawer extends AppCompatActivity
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
+        /*
         //noinspection SimplifiableIfStatement
         if (id == R.id.filter) {
             return true;
-        } /*else if (id == R.id.individual_mode) {
+        } else if (id == R.id.individual_mode) {
             Intent intent = new Intent(MainActivityDrawer.this, IndividualModeActivity.class);
 
             //Tentativa de passar os filmes seleccionados para a activity certa-------------------------------
@@ -146,11 +147,11 @@ public class MainActivityDrawer extends AppCompatActivity
             startActivity(intent);
             finish();
             return true;
-        }*/ else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_share) {
             return true;
         } else if (id == R.id.action_settings) {
             return true;
-        }
+        }*/
 
         return super.onOptionsItemSelected(item);
     }
