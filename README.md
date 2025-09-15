@@ -1,5 +1,5 @@
 # CineRush
-Pair project titled "CineRush" for the course "Computação Móvel" (Computação Móvel) at the school year 2016/2017 of the Master's degree in Informatics (Mestrado em Informática) at FCUL/ULisboa
+Pair project titled "CineRush" for the course "Computação Móvel" (Mobile Computing) at the school year 2016/2017 of the Master's degree in Informatics (Mestrado em Informática) at FCUL/ULisboa
 
 ## Project Stack
  Android, Java, Android Studio, Google Cloud, Firebase, Google App Engine, REST web services.
