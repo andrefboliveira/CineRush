@@ -7,9 +7,10 @@ Pair project titled "CineRush" for the course "Computação Móvel" (Mobile Comp
 ## Details
 Pair project
 
-Development a native Android application (Java) that displays movies schedules showing that week on Portuguese movie theatres.
+Development a native Android application (Java) that displays  movies on exhibition on Portuguese movie theatres.
 
-The backend uses Java and was hosted in Google Cloud and Google App Engine. It retrieves data from Sercultur REST web service (the data source used by Sapo).
+The backend uses Java and was hosted in Google Cloud and Google App Engine. 
+It retrieves data from Sercultur REST web service (the data source used by Sapo).
 It stores in a Firebase database to allow processing and asynchronous update.
 The user interface of the mobile app filters results based on the user current location.
 
